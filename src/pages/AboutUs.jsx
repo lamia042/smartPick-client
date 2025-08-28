@@ -68,7 +68,7 @@ const AboutUs = () => {
               className="mx-auto rounded-full mb-4 w-4/6"
             />
             <h3 className="text-xl font-bold">Afiya Afra</h3>
-            <p className="text-gray-500">Marketing Specialist</p>
+            
           </div>
         </div>
       </section>
