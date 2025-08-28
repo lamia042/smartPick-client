@@ -3,6 +3,7 @@ import Navbar from "../component/Navbar";
 import Slider from "../component/Slider";
 import Footer from "../component/Footer";
 import ShowQueries from "../component/ShowQueries";
+import TopRecommendedQueries from "../component/TopRecommendationQueries";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
         <Slider />
       </section>
       <ShowQueries></ShowQueries>
+      <TopRecommendedQueries></TopRecommendedQueries>
     </div>
   );
 };

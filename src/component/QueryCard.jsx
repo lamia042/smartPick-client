@@ -4,13 +4,12 @@ import { Link } from "react-router";
 
 const QueryCard = ({ query }) => {
   return (
-    <div className="card bg-white border rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-transform hover:scale-105">
+    <div className="card w-96 h-120 bg-white border rounded-lg shadow-lg hover:shadow-xl overflow-hidden transition-transform hover:scale-105 pt-6 px-5">
       {query.productImage && (
-        <img src={query.productImage} alt={query.productName} className="w-full h-48 object-cover" />
+        <img src={query.productImage} alt={query.productName} className="w-full h-68 rounded-sm object-cover" />
       )}
 
       <div className="p-6 flex flex-col justify-between flex-1">
-        <h2 className="text-xl font-semibold mb-3">{query.queryTitle}</h2>
 
         <div className="text-sm text-gray-500 mb-4">
           <p>Created At: {new Date(query.date).toLocaleDateString()}</p>
