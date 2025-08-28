@@ -12,6 +12,7 @@ import ShowQueries from "../component/ShowQueries";
 import MyQueries from "../pages/MyQueries";
 import RecommendationsForMe from "../pages/RecommendationsFoeMe";
 import AboutUs from "../pages/AboutUs";
+import ErrorPage from "../pages/ErrorPage";
 
 const Router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const Router = createBrowserRouter([
       {
         path: "/aboutUs",
         element: <AboutUs></AboutUs>
+      },
+      {
+        path:"*",
+        element:<ErrorPage></ErrorPage>
       }
     ],
   },
