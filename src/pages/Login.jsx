@@ -53,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-11/12 lg:w-10/12 gap-2 items-center mx-auto">
+    <div className="flex flex-col lg:flex-row w-11/12 lg:w-10/12 gap-2 items-center mx-auto mb-10">
       <div className="w-full lg:w-1/2">
         <Lottie className="w-full" animationData={loginLottie} />
       </div>
