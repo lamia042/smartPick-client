@@ -4,6 +4,7 @@ import Slider from "../component/Slider";
 import Footer from "../component/Footer";
 import ShowQueries from "../component/ShowQueries";
 import TopRecommendedQueries from "../component/TopRecommendationQueries";
+import BeOurPart from "../component/BeOurPart";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       </section>
       <ShowQueries></ShowQueries>
       <TopRecommendedQueries></TopRecommendedQueries>
+      <BeOurPart></BeOurPart>
     </div>
   );
 };
