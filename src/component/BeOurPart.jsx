@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import Team from "../assets/Lotties/Teamwork Lottie animation.json";
 const BeOurPart = () => {
   return (
-    <div className="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 py-16 px-6">
+    <div className="bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-100 py-16 px-6">
       <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
         
         {/* Left side - Text */}
@@ -28,7 +28,7 @@ const BeOurPart = () => {
 
         {/* Right side - Lottie Animation */}
         <div className="flex-1 flex justify-center">
-          <Lottie   loop={true} className="w-80 h-80" />
+          <Lottie animationData={Team}  loop={true} className="w-110 h-110" />
         </div>
       </div>
     </div>
