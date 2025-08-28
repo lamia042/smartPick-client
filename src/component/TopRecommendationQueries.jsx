@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { getAuth } from "firebase/auth";
 
 const TopRecommendedQueries = () => {
   const [topProducts, setTopProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const auth = getAuth();
 
   useEffect(() => {
     const fetchTopProducts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/top-queries"); 
+        let headers = {};
+        if (auth.currentUser) {
+          const idToken = await auth.currentUser.getIdToken();
+          headers.Authorization = `Bearer ${idToken}`;
+        }
+
+        const res = await fetch("http://localhost:3000/top-queries", { headers });
+
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
         const data = await res.json();
         setTopProducts(data);
-      } catch (error) {
-        console.error("Error fetching top products:", error);
+      } catch (err) {
+        console.error("Error fetching top products:", err);
+        setError(err.message);
       }
     };
 
     fetchTopProducts();
-  }, []);
+  }, [auth]);
+
+  if (error) return <p className="text-center py-10 text-red-600">{error}</p>;
+  if (!topProducts.length) return <p className="text-center py-10">Loading top products...</p>;
 
   return (
     <motion.div
@@ -31,8 +49,7 @@ const TopRecommendedQueries = () => {
           🏆 Top Recommended Products
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-          Based on community recommendations, here are the top products you
-          should check out.
+          Based on community recommendations, here are the top products you should check out.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

@@ -1,12 +1,32 @@
 // components/AddRecommendationForm.jsx
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/AuthProvider";
-const AddRecommendationForm = ({ queryId, queryTitle, queryProductName, queryUserEmail, queryUserName, refreshRecommendations }) => {
-  const { user } = useContext(AuthContext);
+import { getAuth } from "firebase/auth";
 
-  const handleAddRecommendation = (e) => {
+const AddRecommendationForm = ({
+  queryId,
+  queryTitle,
+  queryProductName,
+  queryUserEmail,
+  queryUserName,
+  refreshRecommendations,
+}) => {
+  const { user } = useContext(AuthContext);
+  const auth = getAuth();
+
+  const handleAddRecommendation = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      Swal.fire({
+        icon: "error",
+        title: "Not logged in",
+        text: "You must be logged in to add a recommendation",
+      });
+      return;
+    }
+
     const form = new FormData(e.target);
     const newRecommendation = {
       recommendationTitle: form.get("recommendationTitle"),
@@ -23,18 +43,39 @@ const AddRecommendationForm = ({ queryId, queryTitle, queryProductName, queryUse
       date: new Date().toISOString(),
     };
 
-    fetch("http://localhost:3000/recommendations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newRecommendation),
-    })
-      .then(res => res.json())
-      .then(data => {
-        Swal.fire({ icon: "success", title: "Recommendation Added", timer: 1500, showConfirmButton: false });
-        e.target.reset();
-        refreshRecommendations(); // refresh list
-      })
-      .catch(err => console.error(err));
+    try {
+      // Get Firebase ID token
+      const idToken = await auth.currentUser.getIdToken();
+
+      const res = await fetch("http://localhost:3000/recommendations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`, // Firebase JWT
+        },
+        body: JSON.stringify(newRecommendation),
+      });
+
+      if (!res.ok) throw new Error("Failed to add recommendation");
+      await res.json();
+
+      Swal.fire({
+        icon: "success",
+        title: "Recommendation Added",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      e.target.reset();
+      refreshRecommendations(); // refresh the list
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.message,
+      });
+    }
   };
 
   return (

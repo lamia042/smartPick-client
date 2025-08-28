@@ -12,8 +12,12 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
     "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
     "firebase": "^12.1.0",
+    "firebase-admin": "^13.5.0",
     "framer-motion": "^12.23.12",
+    "jsonwebtoken": "^9.0.2",
     "lottie-react": "^2.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

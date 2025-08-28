@@ -1,15 +1,25 @@
-// pages/AddQuery.jsx
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { authFetch } from "../utils/authFetch";
 
 const AddQuery = () => {
   const { user } = useContext(AuthContext);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const handleAddQuery = (e) => {
+  const handleAddQuery = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      Swal.fire({
+        icon: "error",
+        title: "Not logged in",
+        text: "You must be logged in to add a query",
+      });
+      return;
+    }
+
     const form = new FormData(e.target);
     const newQuery = {
       productName: form.get("productName"),
@@ -17,35 +27,33 @@ const AddQuery = () => {
       productImage: form.get("productImage"),
       queryTitle: form.get("queryTitle"),
       boycottReason: form.get("boycottReason"),
-
-      // extra user info
-      email: user?.email,
-      name: user?.displayName,
-      profileImage: user?.photoURL,
       date: new Date().toISOString(),
       recommendationCount: 0,
     };
 
-    console.log(newQuery); // check before sending
+    try {
+      await authFetch("http://localhost:3000/queries", {
+        method: "POST",
+        body: JSON.stringify(newQuery),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    // TODO: send to backend / firebase
-    fetch("http://localhost:3000/queries", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newQuery),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        Swal.fire({
-          icon: "success",
-          title: "Query Added Successfully",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        e.target.reset();
-        navigate("/");
-      })
-      .catch((err) => console.error(err));
+      Swal.fire({
+        icon: "success",
+        title: "Query Added Successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      e.target.reset();
+      navigate("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.message,
+      });
+    }
   };
 
   return (
@@ -56,15 +64,11 @@ const AddQuery = () => {
       <form onSubmit={handleAddQuery} className="space-y-5">
         {/* Product Name */}
         <div>
-          <label
-            htmlFor="productName"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Product Name
           </label>
           <input
             type="text"
-            id="productName"
             name="productName"
             placeholder="Enter product name"
             required
@@ -74,15 +78,11 @@ const AddQuery = () => {
 
         {/* Product Brand */}
         <div>
-          <label
-            htmlFor="productBrand"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Product Brand
           </label>
           <input
             type="text"
-            id="productBrand"
             name="productBrand"
             placeholder="Enter brand name"
             required
@@ -92,15 +92,11 @@ const AddQuery = () => {
 
         {/* Product Image */}
         <div>
-          <label
-            htmlFor="productImage"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Product Image URL
           </label>
           <input
             type="url"
-            id="productImage"
             name="productImage"
             placeholder="https://example.com/image.jpg"
             required
@@ -110,32 +106,24 @@ const AddQuery = () => {
 
         {/* Query Title */}
         <div>
-          <label
-            htmlFor="queryTitle"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Query Title
           </label>
           <input
             type="text"
-            id="queryTitle"
             name="queryTitle"
-            placeholder="e.g. Is there any better product that gives me the same quality?"
+            placeholder="Is there any better product with same quality?"
             required
             className="w-full border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-2.5"
           />
         </div>
 
-        {/* Boycotting Reason */}
+        {/* Boycott Reason */}
         <div>
-          <label
-            htmlFor="boycottReason"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Boycotting Reason Details
           </label>
           <textarea
-            id="boycottReason"
             name="boycottReason"
             placeholder="Write your reason for boycotting this product..."
             required
@@ -144,7 +132,6 @@ const AddQuery = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
