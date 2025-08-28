@@ -19,7 +19,7 @@ const BeOurPart = () => {
             make smarter product decisions. 🚀
           </p>
 
-          <Link to="/add-query">
+          <Link to="/addQuery">
             <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg transition-transform hover:scale-105">
             Add Your Query
             </button>

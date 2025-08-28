@@ -2,9 +2,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AddQuery = () => {
   const { user } = useContext(AuthContext);
+  const navigate=useNavigate();
 
   const handleAddQuery = (e) => {
     e.preventDefault();
@@ -41,6 +43,7 @@ const AddQuery = () => {
           showConfirmButton: false,
         });
         e.target.reset();
+        navigate("/");
       })
       .catch((err) => console.error(err));
   };
