@@ -13,7 +13,7 @@ const MyQueries = () => {
   const fetchMyQueries = async () => {
     if (!userEmail) return; // wait until user loads
     try {
-      const res = await fetch(`http://localhost:3000/queries`);
+      const res = await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries`);
       const data = await res.json();
       const myQueries = data.filter((q) => q.email === userEmail);
       setQueries(myQueries);
@@ -33,7 +33,7 @@ const MyQueries = () => {
     if (!confirm) return;
 
     try {
-      await fetch(`http://localhost:3000/queries/${id}`, { method: "DELETE" });
+      await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries/${id}`, { method: "DELETE" });
       setQueries(queries.filter((q) => q._id !== id));
       alert("Query deleted successfully!");
     } catch (err) {

@@ -24,7 +24,7 @@ const QueryDetailsPage = () => {
     setLoadingQuery(true);
     try {
       const idToken = user ? await auth.currentUser.getIdToken() : null;
-      const res = await fetch(`http://localhost:3000/queries/${id}`, {
+      const res = await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries/${id}`, {
         headers: idToken ? { Authorization: `Bearer ${idToken}` } : {},
       });
       if (!res.ok) throw new Error("Failed to fetch query");
@@ -43,7 +43,7 @@ const QueryDetailsPage = () => {
     setLoadingRecs(true);
     try {
       const idToken = user ? await auth.currentUser.getIdToken() : null;
-      const res = await fetch(`http://localhost:3000/recommendations?queryId=${id}`, {
+      const res = await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations?queryId=${id}`, {
         headers: idToken ? { Authorization: `Bearer ${idToken}` } : {},
       });
       if (!res.ok) throw new Error("Failed to fetch recommendations");

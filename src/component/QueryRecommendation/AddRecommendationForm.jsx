@@ -47,7 +47,7 @@ const AddRecommendationForm = ({
       // Get Firebase ID token
       const idToken = await auth.currentUser.getIdToken();
 
-      const res = await fetch("http://localhost:3000/recommendations", {
+      const res = await fetch("https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

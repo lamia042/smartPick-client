@@ -32,7 +32,7 @@ const AddQuery = () => {
     };
 
     try {
-      await authFetch("http://localhost:3000/queries", {
+      await authFetch("https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries", {
         method: "POST",
         body: JSON.stringify(newQuery),
         headers: { "Content-Type": "application/json" },

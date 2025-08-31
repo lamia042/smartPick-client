@@ -10,7 +10,7 @@ const RecommendationsForMe = () => {
     if (!user?.email) return;
     try {
       const res = await fetch(
-        `http://localhost:3000/recommendationsForUser?userEmail=${user.email}`
+        `https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendationsForUser?userEmail=${user.email}`
       );
       const data = await res.json();
       setRecommendations(data);
