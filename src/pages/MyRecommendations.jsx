@@ -7,7 +7,7 @@ const MyRecommendations = () => {
   const [recommendations, setRecommendations] = useState([]);
 
   const fetchMyRecommendations = () => {
-    fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations?userEmail=${user.email}`)
+    fetch(`https://smart-pick-server.vercel.app/recommendations?userEmail=${user.email}`)
       .then(res => res.json())
       .then(data => setRecommendations(data))
       .catch(err => console.error(err));
@@ -30,7 +30,7 @@ const MyRecommendations = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations/${id}`, { method: "DELETE" })
+        fetch(`https://smart-pick-server.vercel.app/recommendations/${id}`, { method: "DELETE" })
           .then(res => res.json())
           .then(() => {
             Swal.fire("Deleted!", "Your recommendation has been deleted.", "success");

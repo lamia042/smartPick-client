@@ -36,7 +36,7 @@ const Recommendation = () => {
   const fetchQuery = async () => {
     setLoadingQuery(true);
     try {
-      const data = await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries/${id}`).then(res => {
+      const data = await fetch(`https://smart-pick-server.vercel.app/queries/${id}`).then(res => {
         if (!res.ok) throw new Error("Failed to fetch query");
         return res.json();
       });
@@ -53,7 +53,7 @@ const Recommendation = () => {
   const fetchRecommendations = async () => {
     setLoadingRecs(true);
     try {
-      const data = await fetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations?queryId=${id}`).then(res => {
+      const data = await fetch(`https://smart-pick-server.vercel.app/recommendations?queryId=${id}`).then(res => {
         if (!res.ok) throw new Error("Failed to fetch recommendations");
         return res.json();
       });

@@ -9,7 +9,7 @@ const TopRecommendedQueries = () => {
     const fetchTopProducts = async () => {
       try {
         const res = await fetch(
-          "https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/top-queries"
+          "https://smart-pick-server.vercel.app/top-queries"
         );
 
         if (!res.ok) {

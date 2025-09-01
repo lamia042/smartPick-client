@@ -8,7 +8,7 @@ const ShowQueries = () => {
 useEffect(() => {
   const fetchQueries = async () => {
     try {
-      const res = await fetch("https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/queries");
+      const res = await fetch("https://smart-pick-server.vercel.app/queries");
       const data = await res.json();
       setQueries(data);
     } catch (err) {

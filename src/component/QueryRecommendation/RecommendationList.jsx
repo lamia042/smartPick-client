@@ -28,7 +28,7 @@ const RecommendationList = ({ recommendations, refreshRecommendations }) => {
     if (!confirm.isConfirmed) return;
 
     try {
-      const res = await authFetch(`https://smart-pick-server-hvh8h7xzk-lamia042s-projects.vercel.app/recommendations/${recId}`, {
+      const res = await authFetch(`https://smart-pick-server.vercel.app/recommendations/${recId}`, {
         method: "DELETE",
       });
 
