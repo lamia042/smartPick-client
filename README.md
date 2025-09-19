@@ -7,7 +7,7 @@
 ## 🌐 Live Demo
 
 Check out the live application here:  
-[**SmartPick Live Link**](https://your-surge-or-vercel-link.surge.sh)  
+[**SmartPick Live Link**](http://smartpick-client.surge.sh/)  
 
 
 
